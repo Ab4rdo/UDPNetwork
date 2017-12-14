@@ -10,11 +10,11 @@ public class Agent extends Thread {
 
     public static void main(String[] args) {
 
-        Agent a = new Agent(1000, 1000);
+        Agent a = new Agent(1000, 3000);
         a.start();
     }
 
-    private final int PORT_NUMBER = 8080;
+    private final int PORT_NUMBER = 9999;
     private final long SYN_TIME;
     private Counter counter;
     private Communicator communicator;

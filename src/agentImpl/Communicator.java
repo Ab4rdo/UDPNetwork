@@ -37,9 +37,10 @@ public class Communicator extends  Thread {
 
                 InetAddress group = InetAddress.getByName("203.0.113.0");
 
-                packet = new DatagramPacket(buf, buf.length, group, SOCKET.getPort());
+                packet = new DatagramPacket(buf, buf.length, group, 9999);
 
                 SOCKET.send(packet);
+
 
                 try {
                     Thread.sleep(SYN_TIME);
@@ -47,8 +48,17 @@ public class Communicator extends  Thread {
                     e.printStackTrace();
                 }
 
+                MulticastSocket mSocket = new MulticastSocket(9999);
 
+                mSocket.joinGroup(group);
 
+                packet = new DatagramPacket(buf, buf.length);
+                mSocket.receive(packet);
+
+                String received = new String(packet.getData());
+                System.out.println("Quote of the Moment: " + received);
+
+                mSocket.leaveGroup(group);
 
 
             } catch (UnknownHostException e) {
